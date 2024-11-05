@@ -60,4 +60,15 @@ function renderTask(){
     //Referencia a los html
     const taskContainer = document.querySelector('#task');
     taskContainer.innerHTML = html.join("");//con map ed arriba recibire un array de string, con Join los convierto en uno solo
+
+    //botones
+    const startButtons = document.querySelectorAll('.task .start-button');
+    startButtons.forEach(button =>{
+        button.addEventListener('click', e =>{
+            
+        })
+    })
+
+    
+
 }
