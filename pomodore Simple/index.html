@@ -8,10 +8,32 @@
 </head>
 <body>
     <div class="pomodoro-container">
-        <div clas="row-container clock-container"></div>
-        <div class="row-container start conatiner"></div>
-        <div class="row-container setings conatiner"></div>
+        <div class="row-container clock-container">
+            <h2 id="clock">25:00</h2> 
+            <div class="input-container">
+                <label for="cycles-input">Pomodoro ciclos</label>
+                <input id="cicles-input" type="number" vale="1">
+            </div>
+        </div>
 
+        <div class="row-container start-container">
+            <button id="start-button">start</button>
+        </div>
+        <div class="row-container settings-container">
+            <div class="input-container">
+                <label for="work-time">Work time</label>
+                <input id="work-time" type="tex" value="25">
+            </div>
+            <div class="input-container">
+                <label for="break-time">Break time</label>
+                <input id="break-time" type="tex" value="5">
+            </div>
+            <div class="input-container">
+                <label for="reset-time">Reset time</label>
+                <input id="reset-time" type="tex" value="15">
+            </div>
+        </div>
+        
     </div>
 
     <script src="pomodoro.js"></script>
