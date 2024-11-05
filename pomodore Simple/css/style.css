@@ -1,43 +1,42 @@
-*{
+* {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
     outline: solid 1px red;
 }
-body{
-    display:flex;
+
+body {
+    display: flex;
     align-items: center;
     justify-content: center;
-    width: 100vw;/*100% de la ventana*/
+    width: 100vw; /* 100% de la ventana */
     height: 100vh;
-    background-color: rgb(30,30,30);
-
-
+    background-color: rgb(30, 30, 30);
 }
 
-.pomodoro-container{
+.pomodoro-container {
     display: flex;
     padding: 10px;
     width: 50%;
     flex-direction: column;
-    border:1px solid #ff4744;
+    border: 1px solid #ff4744;
     border-radius: 15px;
     background: #e5403b;
     box-shadow: rgba(229, 64, 59, 0.8) 0px 0px 24px;
 }
 
-.row-container{
+.row-container {
     display: flex;
     align-items: center;
     min-height: 70px;
 }
 
-.clock-container{
-    padding-top:20px ;
+.clock-container {
+    padding-top: 20px;
     justify-content: flex-end;
 }
 
-#clock{
+#clock {
     width: 50%;
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
@@ -45,7 +44,7 @@ body{
     color: #ffffff;
 }
 
-.input-container{
+.input-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -54,14 +53,14 @@ body{
     text-align: center;
 }
 
-label{
+label {
     text-transform: uppercase;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: 600;
-    color: #ffffff
+    color: #ffffff; /* Agregar punto y coma aquí */
 }
 
-input{
+input {
     padding: 5px;
     width: 80px;
     font-size: 20px;
@@ -71,11 +70,11 @@ input{
     background-color: transparent;
 }
 
-.start-container{
+.start-container {
     justify-content: center;
 }
 
-#start-button{
+#start-button {
     margin-top: 10px;
     margin-bottom: 40px;
     padding: 12px 14px;
@@ -89,13 +88,18 @@ input{
     border-radius: 6px;
     background: #ff4742;
     outline: 0;
-    box-shadow: rgb(0,0,0,0.1) 1px 2px 4px;
+    box-shadow: rgb(0, 0, 0, 0.1) 1px 2px 4px;
 }
 
-#start-button:hover{
+#start-button:hover {
     background-color: #ffffff;
     font-weight: 600;
     color: #ff4742;
 }
 
-
+.settings-container { /* Cambiado para que coincida con el HTML */
+    display: flex;               /* Añadido para centrar */
+    justify-content: center;     /* Añadido para centrar */
+    align-items: center;         /* Añadido para centrar */
+    padding-bottom: 20px;
+}
