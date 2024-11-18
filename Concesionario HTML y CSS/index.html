@@ -1,0 +1,198 @@
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ca">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Venda de Cotxes</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+        /* Reset bàsic */
+        body, h1, p, ul, li, img {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Configuració general */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+            background-color: #f4f4f4;
+        }
+
+        .contenidor {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .targeta {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            height: auto;
+        }
+
+        .targeta img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease; /* Agrega una transición suave */
+}
+
+.targeta img:hover {
+    transform: scale(1.1); /* Aumenta el tamaño al 110% */
+}
+
+
+
+        .informacio {
+            padding: 15px;
+            font-size: 18px;
+            text-align: center;
+            background-color: #ececec;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .informacio .nom {
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #000; /* negro puro */
+        }
+
+
+        .informacio .preu {
+            color: #27ae60;
+            font-size: 20px;
+        }
+
+        /* Estils per a dispositius mòbils */
+        @media (max-width: 600px) {
+            .informacio .nom {
+                font-size: 16px;
+            }
+            .informacio .preu {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inici</a></li>
+                <li><a href="nosaltres.html">Nosaltres</a></li>
+                <li><a href="contacte.html">Contacte</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="inici">
+        <section class="benvinguda">
+            <h1>Benvinguts a la nostra pàgina de venda de cotxes!</h1>
+            <p>Descobreix els millors models de cotxes nous i d'ocasió, seleccionats per a tu!</p>
+        </section>
+
+        <div class="contenidor">
+            <div class="targeta">
+                <img src="cochesimg/A.png" alt="Mini Cooper">
+                <div class="informacio">
+                    <div class="nom">Mini Cooper</div>
+                    <div class="preu">25.000€</div>
+                </div>
+            </div>
+            <div class="targeta">
+                <img src="cochesimg/b.png" alt="Ford Mustang">
+                <div class="informacio">
+                    <div class="nom">Ford Mustang</div>
+                    <div class="preu">45.000€</div>
+                </div>
+            </div>
+            <div class="targeta">
+                <img src="cochesimg/c.png" alt="Toyota Corolla">
+                <div class="informacio">
+                    <div class="nom">Toyota Corolla</div>
+                    <div class="preu">20.000€</div>
+                </div>
+            </div>
+            <div class="targeta">
+                <img src="cochesimg/d.png" alt="Chevrolet Camaro">
+                <div class="informacio">
+                    <div class="nom">Chevrolet Camaro</div>
+                    <div class="preu">50.000€</div>
+                </div>
+            </div>
+            <div class="targeta">
+                <img src="cochesimg/e.png" alt="Audi A4">
+                <div class="informacio">
+                    <div class="nom">Audi A4</div>
+                    <div class="preu">40.000€</div>
+                </div>
+            </div>
+            <div class="targeta">
+                <img src="cochesimg/citroen-c3-aircross-coches-familiares-2-1024x683.png" alt="BMW Serie 3">
+                <div class="informacio">
+                    <div class="nom">BMW Serie 3</div>
+                    <div class="preu">42.000€</div>
+                </div>
+            </div>
+            <div class="targeta">
+                <img src="cochesimg/coches-familiares-mejores-opciones-modelos.png" alt="Mercedes-Benz Clase C">
+                <div class="informacio">
+                    <div class="nom">Mercedes-Benz Clase C</div>
+                    <div class="preu">48.000€</div>
+                </div>
+            </div>
+            <div class="targeta">
+                <img src="cochesimg/coches-familiares-peugeot-1110x577.png" alt="Honda Civic">
+                <div class="informacio">
+                    <div class="nom">Honda Civic</div>
+                    <div class="preu">22.000€</div>
+                </div>
+            </div>
+            <div class="targeta">
+                <img src="cochesimg/peugeot-5008.jpg" alt="Volkswagen Golf">
+                <div class="informacio">
+                    <div class="nom">Volkswagen Golf</div>
+                    <div class="preu">24.000€</div>
+                </div>
+            </div>
+            <div class="targeta">
+                <img src="cochesimg/peugeot-508-sw-vista-dinamica.jpeg" alt="Tesla Model 3">
+                <div class="informacio">
+                    <div class="nom">Tesla Model 3</div>
+                    <div class="preu">35.000€</div>
+                </div>
+            </div>
+            <div class="targeta">
+                <img src="cochesimg/f.png" alt="Mazda CX-5">
+                <div class="informacio">
+                    <div class="nom">Mazda CX-5</div>
+                    <div class="preu">28.000€</div>
+                </div>
+            </div>
+            <div class="targeta">
+                <img src="cochesimg/d.png" alt="Hyundai Tucson">
+                <div class="informacio">
+                    <div class="nom">Hyundai Tucson</div>
+                    <div class="preu">26.000€</div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Venda de Cotxes</p>
+    </footer>
+</body>
+</html>
