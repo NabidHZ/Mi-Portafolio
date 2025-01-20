@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OMDB App - XHR</title>
+  <link rel="stylesheet" href="estilos.css"> <!-- Enlace al archivo CSS -->
+</head>
+<body>
+  <h1>Buscar Películas</h1>
+
+  <!-- Filtro para seleccionar tipo de película -->
+  <label for="tipo">Filtrar por tipo:</label>
+  <select id="tipo">
+    <option value="">Todos</option>
+    <option value="movie">Película</option>
+    <option value="series">Serie</option>
+  </select>
+
+  <!-- Campo de búsqueda y botón -->
+  <input type="text" id="campo-busqueda" placeholder="Escribe el título de una película">
+  <button id="boton-buscar">Buscar</button>
+
+  <!-- Contenedor donde se mostrarán los resultados -->
+  <div id="resultados"></div>
+
+  <script>
+    // Escuchar el clic en el botón de búsqueda
+    document.getElementById('boton-buscar').addEventListener('click', function() {
+      var titulo = document.getElementById('campo-busqueda').value;
+      var tipo = document.getElementById('tipo').value;  // Obtener el tipo seleccionado
+
+      // Construir la URL de la API, agregando el tipo de película si se selecciona
+      var url = `https://www.omdbapi.com/?apikey=f9ff825d&s=${titulo}`;
+      if (tipo) {
+        url += `&type=${tipo}`;  // Si se seleccionó un tipo, lo agregamos a la URL
+      }
+
+      // Crear la solicitud XHR
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', url, true);
+
+      // Cuando la solicitud cambie de estado
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          var respuesta = JSON.parse(xhr.responseText);
+          mostrarResultados(respuesta.Search);  // Mostrar los resultados
+        }
+      };
+
+      // Enviar la solicitud
+      xhr.send();
+    });
+
+    // Función para mostrar los resultados de las películas
+    function mostrarResultados(peliculas) {
+      var contenedor = document.getElementById('resultados');
+      contenedor.innerHTML = ''; // Limpiar los resultados anteriores
+
+      if (peliculas) {
+        peliculas.forEach(function(pelicula) {
+          var elemento = document.createElement('div');
+          elemento.innerHTML = `
+            <img src="${pelicula.Poster}" alt="${pelicula.Title}" style="width: 100px;">
+            <p>${pelicula.Title}</p>
+          `;
+          contenedor.appendChild(elemento);
+        });
+      } else {
+        contenedor.innerHTML = '<p>No se encontraron películas.</p>';
+      }
+    }
+  </script>
+</body>
+</html>
