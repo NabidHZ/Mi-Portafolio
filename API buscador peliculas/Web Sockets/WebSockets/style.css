@@ -1,0 +1,16 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+}
+
+input, select, button {
+    margin: 10px;
+    padding: 10px;
+}
+
+#resultado p {
+    background: #f4f4f4;
+    padding: 10px;
+    border-radius: 5px;
+}
