@@ -33,7 +33,7 @@
       // Construir la URL de la API, agregando el tipo de película si se selecciona
       var url = `https://www.omdbapi.com/?apikey=f9ff825d&s=${titulo}`;
       if (tipo) {
-        url += `&type=${tipo}`;  
+        url += `&type=${tipo}`;  // Si se seleccionó un tipo, lo agregamos a la URL
       }
 
       // Crear la solicitud XHR

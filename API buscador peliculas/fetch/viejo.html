@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OMDB App - XHR</title>
-  <link rel="stylesheet" href="estilos.css"> <!-- Enlace al archivo CSS -->
+  <title>OMDB App - Fetch</title>
+  <link rel="stylesheet" href="estilo.css"> <!-- Enlace al archivo CSS -->
 </head>
 <body>
   <h1>Buscar Películas</h1>
@@ -33,23 +33,14 @@
       // Construir la URL de la API, agregando el tipo de película si se selecciona
       var url = `https://www.omdbapi.com/?apikey=f9ff825d&s=${titulo}`;
       if (tipo) {
-        url += `&type=${tipo}`;  
+        url += `&type=${tipo}`;  // Si se seleccionó un tipo, lo agregamos a la URL
       }
 
-      // Crear la solicitud XHR
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', url, true);
-
-      // Cuando la solicitud cambie de estado
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          var respuesta = JSON.parse(xhr.responseText);
-          mostrarResultados(respuesta.Search);  // Mostrar los resultados
-        }
-      };
-
-      // Enviar la solicitud
-      xhr.send();
+      // Usar fetch para hacer la solicitud
+      fetch(url)
+        .then(response => response.json()) // Convertir la respuesta en formato JSON
+        .then(data => mostrarResultados(data.Search)) // Mostrar los resultados
+        .catch(error => console.log('Error:', error)); // Manejo de errores
     });
 
     // Función para mostrar los resultados de las películas

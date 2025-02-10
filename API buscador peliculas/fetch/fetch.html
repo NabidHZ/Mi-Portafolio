@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OMDB App - Fetch</title>
-  <link rel="stylesheet" href="estilos.css"> <!-- Enlace al archivo CSS -->
+  <link rel="stylesheet" href="estilo.css"> <!-- Enlace al archivo CSS -->
 </head>
 <body>
   <h1>Buscar Películas</h1>
@@ -25,37 +25,78 @@
   <div id="resultados"></div>
 
   <script>
-    // Escuchar el clic en el botón de búsqueda
-    document.getElementById('boton-buscar').addEventListener('click', function() {
-      var titulo = document.getElementById('campo-busqueda').value;
-      var tipo = document.getElementById('tipo').value;  // Obtener el tipo seleccionado
+    // Función que implementa la llamada a la API principal y luego obtiene detalles de cada película.
+    document.getElementById('boton-buscar').addEventListener('click', async function() {
+      const titulo = document.getElementById('campo-busqueda').value;
+      const tipo = document.getElementById('tipo').value;  // Obtener el tipo seleccionado
 
       // Construir la URL de la API, agregando el tipo de película si se selecciona
       var url = `https://www.omdbapi.com/?apikey=f9ff825d&s=${titulo}`;
       if (tipo) {
-        url += `&type=${tipo}`;  // Si se seleccionó un tipo, lo agregamos a la URL
+        url += `&type=${tipo}`;
       }
 
-      // Usar fetch para hacer la solicitud
-      fetch(url)
-        .then(response => response.json()) // Convertir la respuesta en formato JSON
-        .then(data => mostrarResultados(data.Search)) // Mostrar los resultados
-        .catch(error => console.log('Error:', error)); // Manejo de errores
+      try {
+        // Llamada asíncrona a la API principal
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (data.Search && data.Search.length > 0) {
+          // Para cada película obtenida, se solicitan sus detalles en paralelo
+          // usando una función que implementa una carrera entre la llamada y un timeout.
+          const detallesPromises = data.Search.map(pelicula => fetchMovieDetail(pelicula.imdbID));
+          
+          // Esperar a que se resuelvan todas las promesas en paralelo
+          const detalles = await Promise.all(detallesPromises);
+          
+          // Mostrar los resultados con los detalles obtenidos
+          mostrarResultados(detalles);
+        } else {
+          mostrarResultados(null);
+        }
+      } catch (error) {
+        console.log('Error:', error);
+      }
     });
 
-    // Función para mostrar los resultados de las películas
+    // Función que obtiene el detalle de una película utilizando Promise.race para implementar un timeout
+    async function fetchMovieDetail(imdbID) {
+      const urlDetalle = `https://www.omdbapi.com/?apikey=f9ff825d&i=${imdbID}`;
+      
+      // Promesa que hace la llamada a la API para obtener detalles
+      const fetchPromise = fetch(urlDetalle).then(response => response.json());
+      
+      // Promesa de timeout que se rechaza después de 5 segundos
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Tiempo de espera agotado para ' + imdbID)), 5000)
+      );
+      
+      // Devuelve la primera promesa que se resuelva (fetch o timeout)
+      return Promise.race([fetchPromise, timeoutPromise]);
+    }
+
+    // Función para mostrar los resultados de las películas (con detalles)
     function mostrarResultados(peliculas) {
-      var contenedor = document.getElementById('resultados');
+      const contenedor = document.getElementById('resultados');
       contenedor.innerHTML = ''; // Limpiar los resultados anteriores
 
       if (peliculas) {
         peliculas.forEach(function(pelicula) {
-          var elemento = document.createElement('div');
-          elemento.innerHTML = `
-            <img src="${pelicula.Poster}" alt="${pelicula.Title}" style="width: 100px;">
-            <p>${pelicula.Title}</p>
-          `;
-          contenedor.appendChild(elemento);
+          // En caso de que se haya producido un timeout u otro error en el detalle,
+          // se puede mostrar un mensaje alternativo.
+          if (pelicula.Error) {
+            const errorElemento = document.createElement('div');
+            errorElemento.innerHTML = `<p>Error al obtener detalles para: ${pelicula.imdbID}</p>`;
+            contenedor.appendChild(errorElemento);
+          } else {
+            const elemento = document.createElement('div');
+            elemento.innerHTML = `
+              <img src="${pelicula.Poster}" alt="${pelicula.Title}" style="width: 100px;">
+              <p>${pelicula.Title}</p>
+              <p>${pelicula.Plot}</p>
+            `;
+            contenedor.appendChild(elemento);
+          }
         });
       } else {
         contenedor.innerHTML = '<p>No se encontraron películas.</p>';
