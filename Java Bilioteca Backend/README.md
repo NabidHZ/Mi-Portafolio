@@ -17,5 +17,3 @@ El proyecto incluye funcionalidades como:
 - **IDE**: Cualquier entorno de desarrollo que soporte Java (por ejemplo, IntelliJ IDEA, Eclipse).
 - **Sistema operativo**: Cualquier sistema operativo compatible con Java.
 
-## Estructura del Proyecto
-
