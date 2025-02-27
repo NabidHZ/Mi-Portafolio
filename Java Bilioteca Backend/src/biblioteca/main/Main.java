@@ -14,11 +14,13 @@ public class Main {
         Biblioteca biblioteca = new Biblioteca();
         Scanner scanner = new Scanner(System.in);
 
+        // Creació de clients amb tipus ClientPrivat i ClientEscolaMusica
         Client c1 = new ClientPrivat("12345678A", "Joan", "Garcia", "joan@example.com");
         Client c2 = new ClientEscolaMusica("87654321B", "Escola", "Música", "escola@example.com");
         biblioteca.afegirClient(c1);
         biblioteca.afegirClient(c2);
 
+        // Creació de productes
         Calendar dataPublicacio = new GregorianCalendar(2000, Calendar.JANUARY, 1);
         Calendar dataImpressio = new GregorianCalendar(2001, Calendar.FEBRUARY, 1);
 
@@ -31,6 +33,7 @@ public class Main {
         biblioteca.afegirProducte(audioLlibre);
         biblioteca.afegirProducte(vinil);
 
+        // Creació de treballador
         Treballador t1 = new Treballador("11111111X", "Anna", "Pérez", "Bibliotecària");
         biblioteca.afegirTreballador(t1);
 
@@ -45,10 +48,13 @@ public class Main {
             System.out.println("5. Afegir vinil");
             System.out.println("6. Mostrar productes");
             System.out.println("7. Mostrar treballadors");
-            System.out.println("8. Cercar client per DNI");
-            System.out.println("9. Prestar producte");
+            System.out.println("8. Cercar client per DNI i veure productes prestats");
+            System.out.println("9. Prestar producte a un client");
             System.out.println("10. Retornar producte");
-            System.out.println("11. Sortir");
+            System.out.println("11. Eliminar client");
+            System.out.println("12. Eliminar llibre");
+            System.out.println("13. Eliminar vinil");
+            System.out.println("14. Sortir");
             System.out.print("Escull una opció: ");
 
             try {
@@ -60,6 +66,7 @@ public class Main {
 
             switch (opcio) {
                 case 1:
+                    // Afegir client amb tipus
                     System.out.print("Introdueix DNI: ");
                     String dni = scanner.nextLine();
                     System.out.print("Introdueix nom: ");
@@ -80,6 +87,7 @@ public class Main {
                     biblioteca.mostrarClients();
                     break;
                 case 3:
+                    // Afegir llibre
                     System.out.print("Introdueix títol: ");
                     String titol = scanner.nextLine();
                     System.out.print("Introdueix ISBN: ");
@@ -93,6 +101,7 @@ public class Main {
                     biblioteca.afegirProducte(new Llibre(titol, pub, isbn, autor, fulles, imp));
                     break;
                 case 4:
+                    // Afegir audiollibre
                     System.out.print("Introdueix títol: ");
                     titol = scanner.nextLine();
                     System.out.print("Introdueix ISBN: ");
@@ -115,6 +124,7 @@ public class Main {
                     biblioteca.afegirProducte(new AudioLlibre(titol, pub, isbn, autor, ws));
                     break;
                 case 5:
+                    // Afegir vinil
                     System.out.print("Introdueix títol: ");
                     titol = scanner.nextLine();
                     System.out.print("Introdueix nom d'àlbum: ");
@@ -131,17 +141,30 @@ public class Main {
                     biblioteca.mostrarTreballadors();
                     break;
                 case 8:
+                    // Cercar client per DNI i, si trobat, mostrar els productes prestats
                     System.out.print("Introdueix DNI per cercar: ");
                     String searchDNI = scanner.nextLine();
                     Client found = biblioteca.cercarClientPerDNI(searchDNI);
                     if (found != null) {
                         System.out.println("Client trobat: " + found);
+                        System.out.print("Vols veure els productes prestats d'aquest client? (S/N): ");
+                        String resp = scanner.nextLine();
+                        if (resp.equalsIgnoreCase("S")) {
+                            found.mostrarProductesPrestats();
+                        }
                     } else {
                         System.out.println("Client no trobat.");
                     }
                     break;
                 case 9:
-                    System.out.println("Prestar producte");
+                    // Prestar producte a un client
+                    System.out.print("Introdueix el DNI del client: ");
+                    String dniClient = scanner.nextLine();
+                    Client client = biblioteca.cercarClientPerDNI(dniClient);
+                    if (client == null) {
+                        System.out.println("Client no trobat.");
+                        break;
+                    }
                     biblioteca.mostrarProductes();
                     System.out.print("Introdueix el títol del producte a prestar: ");
                     String t = scanner.nextLine();
@@ -153,8 +176,8 @@ public class Main {
                         }
                     }
                     if (producteToPrestar != null) {
-                        if (producteToPrestar.prestar()) {
-                            System.out.println("Producte prestat correctament.");
+                        if (client.prestarProducte(producteToPrestar)) {
+                            System.out.println("Producte prestat correctament al client " + client.getNom());
                         } else {
                             System.out.println("El producte ja està prestat o no es pot prestar.");
                         }
@@ -163,6 +186,7 @@ public class Main {
                     }
                     break;
                 case 10:
+                    // Retornar producte
                     System.out.println("Retornar producte");
                     biblioteca.mostrarProductes();
                     System.out.print("Introdueix el títol del producte a retornar: ");
@@ -185,12 +209,42 @@ public class Main {
                     }
                     break;
                 case 11:
+                    // Eliminar client
+                    System.out.print("Introdueix el DNI del client a eliminar: ");
+                    String dniElim = scanner.nextLine();
+                    if(biblioteca.eliminarClient(dniElim)){
+                        System.out.println("Client eliminat correctament.");
+                    } else {
+                        System.out.println("No s'ha trobat el client.");
+                    }
+                    break;
+                case 12:
+                    // Eliminar llibre
+                    System.out.print("Introdueix el títol del llibre a eliminar: ");
+                    String titolLlibre = scanner.nextLine();
+                    if(biblioteca.eliminarLlibre(titolLlibre)){
+                        System.out.println("Llibre eliminat correctament.");
+                    } else {
+                        System.out.println("No s'ha trobat el llibre.");
+                    }
+                    break;
+                case 13:
+                    // Eliminar vinil
+                    System.out.print("Introdueix el títol del vinil a eliminar: ");
+                    String titolVinil = scanner.nextLine();
+                    if(biblioteca.eliminarVinil(titolVinil)){
+                        System.out.println("Vinil eliminat correctament.");
+                    } else {
+                        System.out.println("No s'ha trobat el vinil.");
+                    }
+                    break;
+                case 14:
                     System.out.println("Sortint...");
                     break;
                 default:
                     System.out.println("Opció no vàlida.");
             }
-        } while (opcio != 11);
+        } while (opcio != 14);
 
         scanner.close();
     }
