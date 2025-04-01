@@ -1,0 +1,18 @@
+El patrón DAO (Data Access Object) es una forma de separar la lógica de acceso a datos de la lógica de negocio o la presentación de la aplicación. Esto permite que las operaciones de base de datos se realicen en clases especializadas, facilitando el mantenimiento, la reutilización y las pruebas de la aplicación.
+
+A continuación te explico cómo funciona y se implementa en el ejemplo:
+
+¿Qué es el patrón DAO?
+Abstracción del acceso a datos:
+Se crea una capa (DAO) que encapsula toda la lógica necesaria para comunicarse con la base de datos. De esta forma, el resto de la aplicación no tiene que preocuparse por los detalles de conexión, consultas SQL, manejo de excepciones, etc.
+
+Interfaces y implementaciones:
+Se define una interfaz (por ejemplo, ClientDAO, CarDAO, RentalDAO) que especifica los métodos CRUD (Crear, Leer, Actualizar, Borrar) y, en ocasiones, otros métodos de búsqueda o filtrado. Luego se crea una clase (por ejemplo, ClientDAOImpl, CarDAOImpl, RentalDAOImpl) que implementa estos métodos utilizando alguna tecnología de acceso a datos, como JDBC en este caso.
+
+Ventajas:
+
+Se separa la lógica de negocio de la persistencia de datos.
+
+Facilita el mantenimiento, ya que si se cambia la forma de acceder a los datos (por ejemplo, de JDBC a JPA o a otro motor), solo se modifica la capa DAO.
+
+Mejora la reutilización y testabilidad de la aplicación.
