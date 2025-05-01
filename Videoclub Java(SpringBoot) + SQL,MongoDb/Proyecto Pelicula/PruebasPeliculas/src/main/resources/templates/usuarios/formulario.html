@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Formulario Usuario</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<h1 th:text="${usuario.id == null ? 'Nuevo Usuario' : 'Editar Usuario'}"></h1>
+<form th:action="@{/usuarios/guardar}" th:object="${usuario}" method="post">
+  <input type="hidden" th:field="*{id}">
+  <div>
+    <label>Nombre:</label>
+    <input type="text" th:field="*{nombre}" required/>
+  </div>
+  <div>
+    <label>Email:</label>
+    <input type="email" th:field="*{email}" required/>
+  </div>
+  <div>
+    <label>Rol:</label>
+    <input type="text" th:field="*{rol}" required/>
+  </div>
+  <button type="submit">Guardar</button>
+</form>
+<a th:href="@{/usuarios}">Cancelar</a>
+</body>
+</html>

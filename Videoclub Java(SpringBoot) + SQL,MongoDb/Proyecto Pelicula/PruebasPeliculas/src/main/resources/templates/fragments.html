@@ -1,0 +1,25 @@
+<!-- src/main/resources/templates/fragments.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<!-- Fragmento para el encabezado -->
+<th:block th:fragment="header">
+  <h1 th:text="${title}"></h1>
+</th:block>
+
+<!-- Fragmento para la navegación -->
+<th:block th:fragment="navigation">
+  <nav>
+    <ul>
+      <li><a th:href="@{/peliculas}">Gestionar Películas</a></li>
+      <li><a th:href="@{/usuarios}">Gestionar Usuarios</a></li>
+      <li><a th:href="@{/logout}">Cerrar Sesión</a></li>
+    </ul>
+  </nav>
+</th:block>
+</body>
+</html>

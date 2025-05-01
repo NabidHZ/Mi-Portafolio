@@ -1,0 +1,12 @@
+-Entrar en MySQL desde Docker:   docker exec -it mysql-clotfilms mysql -uroot -proot
+SHOW DATABASES;
+SHOW TABLES;
+SELECT * FROM pelicula;
+
+
+
+-Mongo
+entrar en mongo docker exec -it mongodb mongosh
+
+use clotfilms_db
+

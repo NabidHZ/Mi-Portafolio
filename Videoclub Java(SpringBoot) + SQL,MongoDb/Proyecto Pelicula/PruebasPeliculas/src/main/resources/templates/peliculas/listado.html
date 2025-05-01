@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+<body>
+<div th:replace="fragments :: header">
+  <h1>Listado de Películas</h1>
+</div>
+<a th:href="@{'/peliculas/nuevo'}">Agregar Nueva Película</a>
+<table>
+  <thead>
+  <tr>
+    <th>Título</th>
+    <th>Género</th>
+    <th>Año</th>
+    <th>Trailer</th>
+    <th>Acciones</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="pelicula : ${peliculas}">
+    <td th:text="${pelicula.titulo}"></td>
+    <td th:text="${pelicula.genero}"></td>
+    <td th:text="${pelicula.anyo}"></td>
+    <td>
+      <div th:if="${pelicula.trailerUrl != null}">
+        <iframe th:src="${pelicula.trailerUrl}" width="300" height="200" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <span th:if="${pelicula.trailerUrl == null}">No disponible</span>
+    </td>
+    <td>
+      <a th:href="@{'/peliculas/editar/' + ${pelicula.id}}">Editar</a>
+      <a th:href="@{'/peliculas/eliminar/' + ${pelicula.id}}">Eliminar</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<a th:href="@{/dashboard}">Volver al Dashboard</a>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+<body>
+<div th:replace="fragments :: header">
+  <h1 th:text="${pelicula.id == null ? 'Nueva Película' : 'Editar Película'}"></h1>
+</div>
+<form th:action="@{/peliculas/guardar}" th:object="${pelicula}" method="post">
+  <input type="hidden" th:field="*{id}">
+  <div>
+    <label>Título:</label>
+    <input type="text" th:field="*{titulo}" required/>
+  </div>
+  <div>
+    <label>Descripción:</label>
+    <textarea th:field="*{descripcion}" required></textarea>
+  </div>
+  <div>
+    <label>Género:</label>
+    <input type="text" th:field="*{genero}" required/>
+  </div>
+  <div>
+    <label>Año:</label>
+    <input type="number" th:field="*{anyo}" required/>
+  </div>
+  <div>
+    <label>URL del Trailer:</label>
+    <input type="url" th:field="*{trailerUrl}" placeholder="https://example.com/trailer" />
+  </div>
+  <button type="submit">Guardar</button>
+</form>
+<a th:href="@{/peliculas}">Cancelar</a>
+</body>
+</html>
